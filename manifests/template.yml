@@ -17,7 +17,7 @@ jobs:
       - gorouter
       - dea_next
       - dea_logging_agent
-      - loggregator
+      - doppler
       - loggregator_trafficcontroller
       - etcd
       - etcd_metrics_server
@@ -46,10 +46,15 @@ properties:
     machines:
       - 192.168.10.10
 
-  dea_next: {}
+  dea_next: 
+    advertise_interval_in_seconds: 5
+    heartbeat_interval_in_seconds: 10
+    memory_mb: 33996
 
   cc: &cc
     bulk_api_password: c1oudc0w
+    internal_api_password: c1oudc0w
+    uaa_client_secret : c1oudc0w
     srv_api_uri: https://api.192.168.10.10.xip.io
     db_logging_level: debug2
     ccng.logging_level: debug2
@@ -160,6 +165,7 @@ properties:
   uaa:
     login:
       addnew: false
+      client_secret: c1oudc0w
     url: https://uaa.192.168.10.10.xip.io
     catalina_opts: -Xmx384m -XX:MaxPermSize=128m
     jwt:
@@ -193,7 +199,12 @@ properties:
     batch:
       username: batch-username
       password: c1oudc0w
-    clients: {}
+    clients: 
+      cloud_controller_username_lookup:
+        secret: c1oudc0w
+      doppler:
+        authorities: uaa.resource
+        secret: c1oudc0w
     scim:
       users:
       - admin|c1oudc0w|scim.write,scim.read,openid,cloud_controller.admin
@@ -226,10 +237,10 @@ properties:
   logger_endpoint:
    port: 4443
 
-  loggregator:
+  doppler:
     zone: default
     status:
-      user: loggregator
+      user: doppler
       password: c1oudc0w
       port: 5768
     incoming_port: 13456
@@ -265,6 +276,9 @@ properties:
     dropsonde_port: 3457
 
   loggregator_endpoint:
+    shared_secret: c1oudc0w
+
+  doppler_endpoint:
     shared_secret: c1oudc0w
 
   dropsonde:
