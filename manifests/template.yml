@@ -243,10 +243,10 @@ properties:
       user: loggregator
       password: c1oudc0w
       port: 7909
-    outgoing_dropsonde_port: 4566
-    doppler_port: 4566
-    incoming_port: 5456
-    dropsonde_incoming_port: 5457
+    incoming_port: 13456
+    dropsonde_incoming_port: 13457
+    outgoing_dropsonde_port: 18081
+    doppler_port: 18081
     servers:
       default:
         - 192.168.10.10
@@ -259,7 +259,7 @@ properties:
       port: 5768
     incoming_port: 13456
     dropsonde_incoming_port: 13457
-    outgoing_port: 38080
+    outgoing_port: 18081
     servers:
       default:
         - 192.168.10.10
@@ -270,8 +270,8 @@ properties:
       user: trafic_controller
       password: c1oudc0w
       port: 6789
-    incoming_port: 23456
-    outgoing_port: 28080
+    incoming_port: 13456
+    outgoing_port: 18080
 
   metron_agent:
     zone: default
@@ -279,8 +279,8 @@ properties:
       user: metron_agent
       password: c1oudc0w
       port: 6799
-    incoming_port: 33456
-    dropsonde_incoming_port: 33457
+    incoming_port: 13456
+    dropsonde_incoming_port: 13457
 
   metron_endpoint:
     shared_secret: c1oudc0w
