@@ -48,13 +48,11 @@ properties:
 
   dea_next: 
     advertise_interval_in_seconds: 5
-    heartbeat_interval_in_seconds: 10
+    heartbeat_interval_in_seconds: 60
     memory_mb: 33996
 
   cc: &cc
     bulk_api_password: c1oudc0w
-    internal_api_password: c1oudc0w
-    uaa_client_secret : c1oudc0w
     srv_api_uri: https://api.192.168.10.10.xip.io
     db_logging_level: debug2
     ccng.logging_level: debug2
@@ -207,7 +205,7 @@ properties:
         secret: c1oudc0w
     scim:
       users:
-      - admin|c1oudc0w|scim.write,scim.read,openid,cloud_controller.admin
+      - admin|c1oudc0w|scim.write,scim.read,openid,doppler.firehose,cloud_controller.admin
 
   etcd:
     machines:
@@ -238,28 +236,20 @@ properties:
    port: 4443
    
   loggregator:
-    zone: default
-    status:
-      user: loggregator
-      password: c1oudc0w
-      port: 7909
     incoming_port: 13456
     dropsonde_incoming_port: 13457
     outgoing_dropsonde_port: 18081
-    doppler_port: 18081
-    servers:
-      default:
-        - 192.168.10.10
+    doppler_port: 8081
 
   doppler:
     zone: default
     status:
-      user: doppler
+      user: loggregator
       password: c1oudc0w
       port: 5768
     incoming_port: 13456
     dropsonde_incoming_port: 13457
-    outgoing_port: 18081
+    outgoing_port: 8081
     servers:
       default:
         - 192.168.10.10
@@ -270,7 +260,7 @@ properties:
       user: trafic_controller
       password: c1oudc0w
       port: 6789
-    incoming_port: 13456
+    incoming_port: 23456
     outgoing_port: 18080
 
   metron_agent:
